@@ -33,6 +33,7 @@ export default function App() {
           keyExtractor={repository => repository.id}
           renderItem={({ item: repository }) => (
             <RepositoryListItem 
+              id={repository.id}
               title={repository.title}
               techs={repository.techs}
               likes={repository.likes}

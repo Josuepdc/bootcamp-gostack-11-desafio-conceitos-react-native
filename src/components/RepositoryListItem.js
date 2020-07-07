@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default ({ title = "", techs = [], likes = 0, onLikePressed = ()=>{} }) => (
+export default ({ id, title = "", techs = [], likes = 0, onLikePressed = ()=>{} }) => (
   <View style={styles.repositoryContainer}>
     <Text style={styles.repository}>{title}</Text>
 
@@ -22,8 +22,7 @@ export default ({ title = "", techs = [], likes = 0, onLikePressed = ()=>{} }) =
     <View style={styles.likesContainer}>
       <Text
         style={styles.likeText}
-        // Remember to replace "1" below with repository ID: {`repository-likes-${repository.id}`}
-        testID={`repository-likes-1`}
+        testID={`repository-likes-${id}`}
       >
         {likes} curtidas
       </Text>
@@ -32,8 +31,7 @@ export default ({ title = "", techs = [], likes = 0, onLikePressed = ()=>{} }) =
     <TouchableOpacity
       style={styles.button}
       onPress={onLikePressed}
-      // Remember to replace "1" below with repository ID: {`like-button-${repository.id}`}
-      testID={`like-button-1`}
+      testID={`like-button-${id}`}
     >
       <Text style={styles.buttonText}>Curtir</Text>
     </TouchableOpacity>

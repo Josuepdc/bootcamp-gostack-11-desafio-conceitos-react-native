@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -7,9 +7,18 @@ import {
   StyleSheet,
 } from "react-native";
 
+import api from "./services/api";
 import RepositoryListItem from "./components/RepositoryListItem";
 
 export default function App() {
+  const [repositories, setRepositories] = useState([]);
+
+  useEffect(() => {
+    api.get("repositories").then(response => {
+      setRepositories(response.data);
+    });
+  }, []);
+
   async function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
   }
@@ -19,11 +28,17 @@ export default function App() {
       <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
 
       <SafeAreaView style={styles.container}>
-        <RepositoryListItem 
-          title={"Repository 1"}
-          techs={["ReactJS", "Node.js"]}
-          likes={3}
-          onLikePressed={() => handleLikeRepository(1)}
+        <FlatList 
+          data={repositories}
+          keyExtractor={repository => repository.id}
+          renderItem={({ item: repository }) => (
+            <RepositoryListItem 
+              title={repository.title}
+              techs={repository.techs}
+              likes={repository.likes}
+              onLikePressed={() => handleLikeRepository(repository.id)}
+            />
+          )}
         />
       </SafeAreaView>
     </>
